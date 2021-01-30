@@ -1,8 +1,9 @@
 import React from 'react';
 import './Product.css';
-const Product = ({product , handleAddProduct}) => {
+import {Link }from 'react-router-dom';
+const Product = ({product , handleAddProduct , condition}) => {
     //console.log(product);
-    const {name , img , price , stock , seller , shipping} = product;
+    const {name , img , price , stock , seller , shipping , key} = product;
 
     return (
         <div className = "product">
@@ -14,12 +15,12 @@ const Product = ({product , handleAddProduct}) => {
 
                <div className = "details">
 
-                       <p>{name}</p>
+                       <h4> <Link to = {"/product/"+key}>{name}</Link></h4>
                        <p><small>By : {seller}</small></p>
                        <p><small>Price : ${price}</small></p>
                        <p><small>Only {stock} is available. Order soon....</small></p>
-                       <button className = "main-btn" onClick = {()=>handleAddProduct(product)}>Add To Cart</button>
-
+                       {(condition) ? null : <button className = "main-btn" onClick = {()=>handleAddProduct(product)}>Add To Cart</button>
+}
                </div>
         </div>
     );
