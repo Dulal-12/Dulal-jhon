@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import fakeData from '../../fakeData';
-import { getDatabaseCart, removeFromDatabaseCart } from '../../utilities/databaseManager';
+import { getDatabaseCart, processOrder, removeFromDatabaseCart } from '../../utilities/databaseManager';
 import Cart from '../Cart/Cart';
 import ReviewItem from '../ReviewItem/ReviewItem';
+import happy from'../../images/giphy.gif';
 
 const Review = () => {
 
-    const [cart , setCart] = useState([]);
+    const [sproduct , setSproduct] = useState([]);
+    const [orderPlace , SetOrderPlace] = useState(false);
 
     useEffect(()=> {
         const savedCart = getDatabaseCart();
@@ -18,29 +20,38 @@ const Review = () => {
             product.quantity = savedCart[key];
             return product;
         })
-
-       setCart(reviewProducts);
+        setSproduct(reviewProducts);
     }, [])
+    
    // console.log(cart.length);
 
     const handleRemoveProduct = (key) =>{
 
-        const newCart = cart.filter(pd => pd.key !== key);
-        setCart(newCart);
+        const newCart = sproduct.filter(pd => pd.key !== key);
+        setSproduct(newCart);
         removeFromDatabaseCart(key);
 
+    }
+
+    const handlePlaceOrder = ()=>{
+        setSproduct([]);
+        SetOrderPlace(true);
+        processOrder();
     }
     return (
         <div className = "shop-container">
           
                     <div className="product-container">
                            {
-                              cart.map(value=> <ReviewItem value={value}  handleRemoveProduct = { handleRemoveProduct} key={value.key}></ReviewItem>)
+                              sproduct.map(value=> <ReviewItem value={value}  handleRemoveProduct = { handleRemoveProduct} key={value.key}></ReviewItem>)
+                           }
+                           {
+                               (orderPlace) ? <img src = {happy} alt=""/> : null
                            }
                     </div>
 
                     <div className="cart-conat">
-                      
+                       <Cart sproduct = {sproduct} condition = {true} handlePlaceOrder = {handlePlaceOrder}/>
                     </div>
         </div>
     );
