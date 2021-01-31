@@ -41,7 +41,7 @@ function App() {
  
                  
 
-                   <Route path exact = '*'>
+                   <Route path  = '*'>
                                 <NoMatch></NoMatch>
                    </Route>
           

@@ -1,9 +1,7 @@
 import React from 'react';
-import './Product.css';
-import {Link }from 'react-router-dom';
-const Product = ({product , handleAddProduct , condition}) => {
-    //console.log(product);
-    const {name , img , price , stock , seller , key} = product;
+
+const ReviewItem = ({value ,  handleRemoveProduct}) => {
+    const {name , img , price , stock , seller , key,quantity} = value;
 
     return (
         <div className = "product">
@@ -15,15 +13,15 @@ const Product = ({product , handleAddProduct , condition}) => {
 
                <div className = "details">
 
-                       <h4> <Link to = {"/product/"+key}>{name}</Link></h4>
+                       <h4>{name}</h4>
                        <p><small>By : {seller}</small></p>
                        <p><small>Price : ${price}</small></p>
                        <p><small>Only {stock} is available. Order soon....</small></p>
-                       {(condition) ? null : <button className = "main-btn" onClick = {()=>handleAddProduct(product)}>Add To Cart</button>
-}
+                       <p><small>Quantity : {quantity}</small></p>
+                       <button className = "main-btn" onClick = {()=> handleRemoveProduct(key)}>Remove Product</button>
                </div>
         </div>
     );
 };
 
-export default Product;
+export default ReviewItem;

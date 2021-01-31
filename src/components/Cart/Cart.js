@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-const Cart = ({sproduct}) => {
+const Cart = ({sproduct }) => {
 
     const totalPrice = sproduct.reduce((ential,product) =>  ential + product.price,0);
     const tex = Math.floor((totalPrice*5)/100);
@@ -10,7 +10,7 @@ const Cart = ({sproduct}) => {
         <div>
             <h4>Order summary</h4>
             <p>Order list : {sproduct.length}</p>
-            <p>Shipping Cost : {shippingCost}</p>
+            <p>Shipping Cost : {Math.round(shippingCost)}</p>
             <p>Tax  : {tex}</p>
             <p>Total Price : {Math.round(totalPrice + shippingCost + tex)}</p>
           <Link to = '/review'>  <button className = "main-btn">Review Order</button></Link>
