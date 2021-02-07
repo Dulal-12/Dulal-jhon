@@ -11,12 +11,22 @@ import Review from './components/Review/Review';
 import Manage from './components/Manage/Manage';
 import NoMatch from './components/NoMatch/NoMatch';
 import ProductDetail from './components/ProductDetail/ProductDetail';
+import LogIn from './components/LogIn/LogIn';
+import Shipment from './components/Shipment/Shipment';
+import { createContext, useState } from 'react';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+
+export const userContext = createContext();
 
 function App() {
+
+  const [loggedInUser , setLoggedInUser] = useState({});
   return (
-   
+   <userContext.Provider value = { [loggedInUser , setLoggedInUser] }>
     <Router>
+    {<h2>{loggedInUser.email}</h2>}
        <Header></Header>
+    
             <Switch> 
 
             <Route path exact = '/'>
@@ -35,9 +45,20 @@ function App() {
                                 <ProductDetail></ProductDetail>
                    </Route>
 
-                   <Route path = '/manage'>
+                   <PrivateRoute path = '/manage'>
                                 <Manage></Manage>
+                   </PrivateRoute>
+                    
+                    
+                   <Route path = '/login'>
+                               <LogIn></LogIn>
                    </Route>
+
+                   <PrivateRoute path = '/shipment'>
+                              <Shipment></Shipment>
+                   </PrivateRoute>
+
+
  
                  
 
@@ -47,6 +68,7 @@ function App() {
           
             </Switch>
     </Router>
+    </userContext.Provider>
   );
 }
 

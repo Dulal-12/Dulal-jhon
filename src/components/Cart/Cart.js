@@ -17,7 +17,7 @@ const Cart = ({sproduct , condition , handlePlaceOrder }) => {
             <p>Shipping Cost : {Math.round(shippingCost)}</p>
             <p>Tax  : {tex}</p>
             <p>Total Price : {Math.round(totalPrice + shippingCost + tex)}</p>
-          {(condition)?<button className = "main-btn" onClick = {()=> handlePlaceOrder()}>Place order</button> : <Link to = '/review'>  <button className = "main-btn">Review Order</button></Link>}
+          {(condition)?<button className = "main-btn" onClick = {()=> handlePlaceOrder()}>Proceed Checkout</button> : <Link to = '/review'>  <button className = "main-btn">Review Order</button></Link>}
         </div>
     );
 };

@@ -5,11 +5,13 @@ import { getDatabaseCart, processOrder, removeFromDatabaseCart } from '../../uti
 import Cart from '../Cart/Cart';
 import ReviewItem from '../ReviewItem/ReviewItem';
 import happy from'../../images/giphy.gif';
+import { useHistory } from 'react-router-dom';
 
 const Review = () => {
 
     const [sproduct , setSproduct] = useState([]);
     const [orderPlace , SetOrderPlace] = useState(false);
+    const history = useHistory();
 
     useEffect(()=> {
         const savedCart = getDatabaseCart();
@@ -37,6 +39,7 @@ const Review = () => {
         setSproduct([]);
         SetOrderPlace(true);
         processOrder();
+        history.push('/shipment');
     }
     return (
         <div className = "shop-container">
